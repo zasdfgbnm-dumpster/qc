@@ -11,7 +11,7 @@ namespace quantum_chem {
 /* rhf:
  * the routine that calculates Restricted Hartree Fock
  */
-void rhf(int n_electrons, hermitian_matrix h, hermitian_matrix overlap, coulomb_exchange ce, double tol){
+hf_output rhf(int n_electrons, hermitian_matrix h, hermitian_matrix overlap, coulomb_exchange ce, double tol){
 
 	int n_bases = h.n_rows();
 	int dime = n_electrons/2;
@@ -50,6 +50,7 @@ void rhf(int n_electrons, hermitian_matrix h, hermitian_matrix overlap, coulomb_
 		// test convergence
 		converged = ( (C-C_old).norm() < tol );
 	}while(!converged);
+	return make_tuple(eigenvalues,C);
 }
 
 #endif
