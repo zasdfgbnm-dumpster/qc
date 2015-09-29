@@ -32,7 +32,7 @@ integer nbase,nelectron
                                 ) then
                                         backspace 10
                                         read (10,*) w1,w1,w1,nbase
-                                        print *,nbase
+                                        write (*,*) nbase
                                 end if
                         end if
                         !get alpha and beta population
@@ -46,7 +46,7 @@ integer nbase,nelectron
                            ) then
                                 backspace 10
                                 read (10,*) w1,w2,w3,w4,nelectron
-                                print *,nelectron
+                                write (*,*) nelectron
                                 if (w1=="Beta") then
                                         exit
                                 end if
