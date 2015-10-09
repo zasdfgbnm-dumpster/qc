@@ -1,5 +1,5 @@
 C*************************************************************
-      subroutine Get2EInt(naobasfn)
+      subroutine Get2EInt(naobasfn,g4)
 C     
 C     Get two electron integrals
 C         
@@ -13,8 +13,7 @@ c
       common /machsp/ iintln,ifltln,iintfp,ialone,ibitwd
 c
       dimension 
-c     &          G1(naobasfn*naobasfn*naobasfn*naobasfn/8),
-     &          G2(naobasfn,naobasfn,naobasfn,naobasfn), 
+     &          G4(naobasfn,naobasfn,naobasfn,naobasfn),
      &          buf(600),ibuf(600)
 c
       iupki(int)=and(int,ialone)
@@ -31,14 +30,11 @@ c
       filename(2)='IJIJ'
       filename(3)='IIJJ'
       filename(4)='IJKL'
-c      filename='IIII','IJIJ','IIJJ','IJKL'
-c      write(*,*) filename
-c
+C
       do 10 ifile=1,4
          FileExist=.false.
          inquire(file=filename(ifile),exist=FileExist)
          if (FileExist) then
-c     write(*,*) filename(ifile),' exists'
 c     
             open(unit=ifile,file=filename(ifile),form='UNFORMATTED',
      &           access='SEQUENTIAL')
@@ -70,43 +66,36 @@ c
 c     
                   x = buf(int)
 c     
-                  G2(i,j,k,l)=x
-                  G2(i,j,l,k)=x
-                  G2(j,i,k,l)=x
-                  G2(j,i,l,k)=x
-                  G2(k,l,j,i)=x
-                  G2(k,l,i,j)=x
-                  G2(l,k,i,j)=x
-                  G2(l,k,j,i)=x
-c     
+                  G4(i,j,k,l)=x
+                  G4(i,j,l,k)=x
+                  G4(j,i,k,l)=x
+                  G4(j,i,l,k)=x
+                  G4(k,l,j,i)=x
+                  G4(k,l,i,j)=x
+                  G4(l,k,i,j)=x
+                  G4(l,k,j,i)=x
+     
                   ind3=indx(ind1,ind2)
-c     
-c      write(*,*) i,j,k,l,x
+Cc     
+C                  write (6,"(1x,I3,1x,i3,1x,i3,1x,i3,F15.10)")
+C     &                  i,j,k,l,X
                end do
+
             end do
             close(ifile)
-c     write(*,*) 'nut',nut
-c     
-c     write(*,*) IBITWD
-c     
-c     write(*,*) 'twoelec buf'
-c     write(*,*) buf
-c     write(*,*) 'twoelec ibuf'
-c     write(*,*) ibuf
-c     write(*,*) 'G2'
-c     
-c     
          else
          end if   
  10   continue  
 c     
-c output
+Cc output
       write (*,*) "2-electron integrals in 1122 notation"
       do i=1,naobasfn
          do j=1,naobasfn
             do k=1,naobasfn
                do l=1,naobasfn
-                  write (*,*) G2(i,j,k,l)
+C                 write (6,"(1x,I3,1x,i3,1x,i3,1x,i3,F15.10)")
+C     &                  i,j,k,l,G4(i,j,k,l)
+                  write (*,*) G4(i,j,k,l)
                end do
             end do
          end do

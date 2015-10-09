@@ -1,5 +1,5 @@
 C*************************************************************
-      subroutine Get1EInt(ndim)
+      subroutine Get1EInt(ndim,oneh,ovrlp,oneh_full,ovrlp_full)
 C     
 C     Get one electron integrals
 C         
@@ -16,7 +16,6 @@ c
       FileExist=.false.
       inquire(file='IIII',exist=FileExist)
       if (FileExist) then
-c         write(*,*) 'IIII file exists'
          open(unit=10,file='IIII',form='UNFORMATTED',
      &        access='SEQUENTIAL')
          rewind 10
