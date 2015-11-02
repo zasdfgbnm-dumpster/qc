@@ -1,5 +1,12 @@
 .PHONY: print_itgl all clean
 
+COMMON=Makefile src/aces.hpp src/hartree_fock.hpp src/matrix.hpp src/utils.hpp
+
+all:integrals bin/rhf
+
+bin/rhf:$(COMMON) src/rhf.hpp src/rhf.cpp
+	icpc src/rhf.cpp -O0 -qopenmp -mkl=parallel -lpthread -lm -std=c++11 -Ilib -o bin/rhf
+
 integrals:print_itgl
 	rm -rf build
 	mkdir build
@@ -14,6 +21,7 @@ integrals:print_itgl
 		./xvscf >> out;\
 		./xprint_itgl > $$(basename $$i.txt);\
 		mv $$(basename $$i.txt) ..;\
+		mv out ../$$(basename $$i.out);\
 		cd ..;\
 		rm -rf $$(basename $$i);\
 	done
@@ -22,8 +30,6 @@ integrals:print_itgl
 print_itgl:
 	make -C print_itgl
 	mv print_itgl/xprint_itgl bin/
-
-all:
 
 clean:
 	make -C print_itgl clean
