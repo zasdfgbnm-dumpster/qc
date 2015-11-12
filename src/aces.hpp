@@ -13,14 +13,19 @@
 
 namespace quantum_chem {
 
-void read_configuration(std::string filename, int &n_alpha, int &n_beta, hermitian_matrix &h, hermitian_matrix &overlap, coulomb_exchange &ce){
+void read_configuration(std::string filename, calculation_data &data){
+	hermitian_matrix &h = data.ao_h;
+	hermitian_matrix &overlap = data.ao_overlap;
+	coulomb_exchange &ce = data.ao_2eint;
 	std::ifstream in(filename);
 	// number of base functions
-	int n_bases;
+	int &n_bases = data.n_baseset;
+	int n_alpha,n_beta;
 	in >> n_bases;
 	// number of electrons
 	in >> n_alpha;
 	in >> n_beta;
+	data.n_paired = n_alpha+n_beta;
 	#ifdef DEBUG
 	std::cout << "n_bases: " << n_bases << std::endl;
 	std::cout << "n_alpha: " << n_alpha << std::endl;

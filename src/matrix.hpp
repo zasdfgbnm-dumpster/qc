@@ -37,15 +37,16 @@ public:
 	virtual int n_rows() const { return mat.rows(); }
 	virtual int n_columns() const { return mat.cols(); }
 	virtual double &operator()(int i,int j){ return mat(i,j); }
-	virtual matrix left_columns(int n){ return matrix(mat.leftCols(n)); }
-	virtual matrix conjugate_transpose(){ return matrix(mat.adjoint()); }
-	virtual double norm(){ return (mat.lpNorm<Eigen::Infinity>()); }
-	matrix operator-(matrix rhs){
+	virtual double operator()(int i,int j) const { return mat(i,j); }
+	virtual matrix left_columns(int n) const { return matrix(mat.leftCols(n)); }
+	virtual matrix conjugate_transpose() const { return matrix(mat.adjoint()); }
+	virtual double norm() const { return (mat.lpNorm<Eigen::Infinity>()); }
+	matrix operator-(matrix rhs) const {
 		matrix ret = *this;
 		ret.mat -= rhs.mat;
 		return ret;
 	}
-	matrix operator*(matrix rhs){
+	matrix operator*(matrix rhs) const {
 		matrix ret = *this;
 		ret.mat *= rhs.mat;
 		return ret;

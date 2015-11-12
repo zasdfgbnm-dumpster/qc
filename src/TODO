@@ -1,0 +1,14 @@
+implement consistency_check
+modify rhf code to do uhf and rohf (make a general code)
+modify main.cpp to be able to use newly changed structure
+test with cc-pvdz base set
+implement calculation of MO 2e-integrals
+implement MBPT2
+implement CIS
+implement CPHF
+implement TDHF
+implement DFT
+implement CCSD
+implement my own basesets
+modify all the codes to use symmetry to reduce duplicate calculation
+code generator for higher order MBPT, CC

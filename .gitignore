@@ -1,3 +1,9 @@
 tasks
 aces
 lib
+bin
+build
+samples
+print_itgl/make.*
+*.o
+*.a
