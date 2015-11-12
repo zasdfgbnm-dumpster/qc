@@ -2,6 +2,7 @@
 #define __HPP_QUANTUM_HF__
 
 #include <string>
+#include <chrono>
 #include "matrix.hpp"
 #include "common.hpp"
 
@@ -17,7 +18,10 @@ namespace quantum_chem {
  *  2) Hartree Fock molecular orbitals,
  *  3) 0th, 1th order energy, Hartree Fock energy
  */
-void hartree_fock(calculation_data &data, const double tol=1e-12){
+std::chrono::duration<double> hartree_fock(calculation_data &data, const double tol=1e-12){
+	std::chrono::duration<double> elapsed_seconds(0);
+	auto start = std::chrono::steady_clock::now();
+
 	const int n_bases = data.n_baseset;
 	const int dime = data.n_paired/2;
 	const hermitian_matrix &h = data.ao_h;
@@ -120,7 +124,9 @@ void hartree_fock(calculation_data &data, const double tol=1e-12){
 			E += P(j,i)*h(i,j);
 	for(int i=0;i<dime;i++)
 	data.E1 = E - data.E0;
-	return;
+	auto end = std::chrono::steady_clock::now();
+	elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end-start);
+	return elapsed_seconds;
 }
 
 }

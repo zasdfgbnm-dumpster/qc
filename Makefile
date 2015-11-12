@@ -2,10 +2,11 @@
 
 COMMON=Makefile src/aces.hpp src/hartree_fock.hpp src/matrix.hpp src/utils.hpp
 
-all:integrals bin/calc
-
 bin/calc:$(COMMON) src/main.cpp
-	icpc src/main.cpp -O -qopenmp -mkl=parallel -lpthread -lm -std=c++11 -Ilib -o bin/calc
+	#icpc src/main.cpp -O -qopenmp -mkl=parallel -lpthread -lm -std=c++11 -Ilib -o bin/calc
+	g++ src/main.cpp -O -std=c++11 -Ilib -o bin/calc
+
+all:integrals bin/calc
 
 integrals:print_itgl
 	rm -rf build

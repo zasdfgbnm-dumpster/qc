@@ -9,15 +9,17 @@ using namespace std;
 using namespace quantum_chem;
 
 int main(int argc, char *argv[]){
-	string filename = "samples/H2O.txt";
 	calculation_data data;
 
 	// read from file
+	string filename = "samples/H2O.txt";
+	data.nuclear_repulsion = 7.3256933549;
 	try { read_configuration(filename,data); }
 	catch(string s){ cerr << s << endl; return 1; }
 		
-	data.nuclear_repulsion = 7.3256933549;
-	hartree_fock(data);
+	// Hartree Fock
+	auto t = hartree_fock(data);
+	cout << t.count() << endl;
 
 	return 0;
 }

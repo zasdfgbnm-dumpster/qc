@@ -10,14 +10,9 @@
  * other library if we want to.
  */
 
-#ifndef EIGEN_USE_MKL_ALL
-#define EIGEN_USE_MKL_ALL
-#endif
-
 #include <Eigen/Eigen>
 #include <unsupported/Eigen/MatrixFunctions>
 #include <vector>
-#include <iostream> // delete
 
 
 namespace quantum_chem{
@@ -79,12 +74,7 @@ public:
  * Hv=uSv
  */
 void hermitian_matrix::generalized_eigen_solver(const hermitian_matrix &H, const hermitian_matrix &S, matrix &vs, std::vector<double> &eigenvalues) {
-	/* // switched to Lowdin diagonalization
-	Eigen::GeneralizedSelfAdjointEigenSolver<Eigen::MatrixXd> es(H.mat,S.mat);
-	vs = matrix(es.eigenvectors());
-	for(int i=0;i<H.n_columns();i++)
-		eigenvalues[i] = es.eigenvalues()[i];
-	return;*/
+	// Lowdin diagonalization
 	eigenvalues.resize(H.n_columns());
 
 	std::tuple<hermitian_matrix,hermitian_matrix> S_sqrt = S.pmsqrt();
