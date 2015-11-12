@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 #include "aces.hpp"
 #include "hartree_fock.hpp"
 #include "common.hpp"
@@ -19,7 +19,9 @@ int main(int argc, char *argv[]){
 		
 	// Hartree Fock
 	auto t = hartree_fock(data);
-	cout << t.count() << endl;
+	cout << "------- Hartree Fock Calculation -------" << endl;
+	cout << "Hartree Fock energy: " << data.Ehf() << endl;
+	cout << "Time usage: " << t.count() << " seconds" << endl;
 
 	return 0;
 }
