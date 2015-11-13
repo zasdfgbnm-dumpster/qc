@@ -29,8 +29,8 @@ class calculation_data {
 public:
 	int n_baseset;                     //number of atomic base functions
 	int n_paired;                      //number of paired electrons
-	int n_alpha_electrons;             //number of unpaired alpha electrons
-	int n_beta_electrons;              //number of unpaired beta electrons
+	int n_alpha_electrons;             //number of unpaired alpha electrons: not implemented yet
+	int n_beta_electrons;              //number of unpaired beta electrons: not implemented yet
 
 	hermitian_matrix ao_h;             //one electron integrals h in atomic orbitals
 	hermitian_matrix ao_overlap;       //overlap matrix of atomic orbitals
