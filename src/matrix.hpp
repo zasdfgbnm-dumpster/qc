@@ -10,8 +10,8 @@
  * other library if we want to.
  */
 
-#include <Eigen/Eigen>
-#include <unsupported/Eigen/MatrixFunctions>
+#include <eigen3/Eigen/Eigen>
+#include <eigen3/unsupported/Eigen/MatrixFunctions>
 #include <vector>
 
 
