@@ -50,7 +50,7 @@ std::chrono::duration<double> hartree_fock(calculation_data &data, const double 
 		matrix P_old = P;
 		#endif
 
-		matrix C_old = data.ao2mo;
+		matrix C_old = C;
 		// build Fock matrix
 		Fuv = h;
 		for(int u=0;u<n_bases;u++)
@@ -92,6 +92,7 @@ std::chrono::duration<double> hartree_fock(calculation_data &data, const double 
 		for(int i=0;i<n_bases;i++)
 			std::cout << eigenvalues[i] << ' ';
 		std::cout << std::endl;
+		#ifdef VERBOSE
 		std::cout << "C: " << std::endl << C.mat << std::endl;
 		std::cout << "delta C: " << std::endl << diffC.mat << std::endl;
 		std::cout << "P: " << std::endl << P.mat << std::endl;
@@ -99,6 +100,7 @@ std::chrono::duration<double> hartree_fock(calculation_data &data, const double 
 		std::cout << "F: " << std::endl << Fuv.mat << std::endl;
 		std::cout << "delta F: " << std::endl << diffF.mat << std::endl;
 		std::cout << "-----------------" << std::endl;
+		#endif
 		#endif
 
 	}while(!converged);

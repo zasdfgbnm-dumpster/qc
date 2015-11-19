@@ -1,4 +1,4 @@
-//#define DEBUG
+#define DEBUG
 #include "common.hpp"
 #include "aces.hpp"
 #include "hartree_fock.hpp"

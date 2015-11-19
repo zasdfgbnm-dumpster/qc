@@ -4,6 +4,7 @@ COMMON=Makefile src/aces.hpp src/hartree_fock.hpp src/matrix.hpp src/utils.hpp
 
 bin/calc:$(COMMON) src/main.cpp
 	#icpc src/main.cpp -O -qopenmp -mkl=parallel -lpthread -lm -std=c++11 -Ilib -o bin/calc
+	module load gcc/5.2.0;\
 	g++ src/main.cpp -O -std=c++11 -Ilib -o bin/calc
 
 all:integrals bin/calc
@@ -29,6 +30,7 @@ integrals:print_itgl
 	cp build/* samples
 	
 print_itgl:
+	module load intel/2016.0.109;\
 	make -C print_itgl
 	mv print_itgl/xprint_itgl bin/
 
