@@ -13,12 +13,12 @@ std::chrono::duration<double> itgl_transform(calculation_data &data) {
 	int n = data.n_baseset;
 	hermitian_matrix &mm = data.mo_h;
 	const hermitian_matrix &aa = data.ao_h;
-	coulomb_exchange &mmmm = data.mo_2eint;
-	const coulomb_exchange &aaaa = data.ao_2eint;
+	dbl_e_itgls &mmmm = data.mo_2eint;
+	const dbl_e_itgls &aaaa = data.ao_2eint;
 	matrix &ao2mo = data.ao2mo;
 
 	mm = hermitian_matrix(n);
-	mmmm = coulomb_exchange(n);
+	mmmm = dbl_e_itgls(n);
 
 	// transform h
 	hermitian_matrix am(n);
@@ -39,7 +39,7 @@ std::chrono::duration<double> itgl_transform(calculation_data &data) {
 	}
 	
 	// transform <ij|kl>
-	coulomb_exchange aaam(n);
+	dbl_e_itgls aaam(n);
 	for(int i=0;i<n;i++){
 		for(int j=0;j<n;j++){
 			for(int k=0;k<n;k++){
@@ -51,7 +51,7 @@ std::chrono::duration<double> itgl_transform(calculation_data &data) {
 			}
 		}
 	}
-	coulomb_exchange aamm(n);
+	dbl_e_itgls aamm(n);
 	for(int i=0;i<n;i++){
 		for(int j=0;j<n;j++){
 			for(int k=0;k<n;k++){
@@ -63,7 +63,7 @@ std::chrono::duration<double> itgl_transform(calculation_data &data) {
 			}
 		}
 	}
-	coulomb_exchange ammm(n);
+	dbl_e_itgls ammm(n);
 	for(int i=0;i<n;i++){
 		for(int j=0;j<n;j++){
 			for(int k=0;k<n;k++){

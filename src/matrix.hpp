@@ -59,7 +59,8 @@ protected:
 public:
 	hermitian_matrix(){}
 	hermitian_matrix(int n):matrix(n,n){}
-	static void generalized_eigen_solver(const hermitian_matrix &H, const hermitian_matrix &S, matrix &vs, std::vector<double> &eigenvalues);
+	static void lowdin_diagonalization(const hermitian_matrix &H, const hermitian_matrix &S, matrix &vs, std::vector<double> &eigenvalues);
+	static void eigen_solver(const hermitian_matrix &A, matrix &vs, std::vector<double> &eigenvalues);
 	static hermitian_matrix idmat(int size);
 	std::tuple<hermitian_matrix,hermitian_matrix> pmsqrt() const;
 	hermitian_matrix operator=(matrix m){
@@ -73,7 +74,7 @@ public:
 /* eigen problem solver for Hermitian matrix
  * Hv=uSv
  */
-void hermitian_matrix::generalized_eigen_solver(const hermitian_matrix &H, const hermitian_matrix &S, matrix &vs, std::vector<double> &eigenvalues) {
+void hermitian_matrix::lowdin_diagonalization(const hermitian_matrix &H, const hermitian_matrix &S, matrix &vs, std::vector<double> &eigenvalues) {
 	// Lowdin diagonalization
 	eigenvalues.resize(H.n_columns());
 
@@ -86,6 +87,14 @@ void hermitian_matrix::generalized_eigen_solver(const hermitian_matrix &H, const
 	Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(H2.mat);
 	vs = nsqrt*matrix(es.eigenvectors());
 	for(int i=0;i<H.n_columns();i++)
+		eigenvalues[i] = es.eigenvalues()[i];
+}
+
+static void eigen_solver(const hermitian_matrix &A, matrix &vs, std::vector<double> &eigenvalues){
+	eigenvalues.resize(A.n_columns());
+	Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(A.mat);
+	vs = matrix(es.eigenvectors());
+	for(int i=0;i<A.n_columns();i++)
 		eigenvalues[i] = es.eigenvalues()[i];
 }
 

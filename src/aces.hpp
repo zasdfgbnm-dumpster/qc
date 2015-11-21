@@ -16,7 +16,7 @@ namespace quantum_chem {
 void read_configuration(std::string filename, calculation_data &data){
 	hermitian_matrix &h = data.ao_h;
 	hermitian_matrix &overlap = data.ao_overlap;
-	coulomb_exchange &ce = data.ao_2eint;
+	dbl_e_itgls &ce = data.ao_2eint;
 	std::ifstream in(filename);
 	// number of base functions
 	int &n_bases = data.n_baseset;
@@ -67,7 +67,7 @@ void read_configuration(std::string filename, calculation_data &data){
 	#ifdef DEBUG
 	std::cout << "Start reading 2 electron integrals..." << std::endl;
 	#endif
-	ce = coulomb_exchange(n_bases);
+	ce = dbl_e_itgls(n_bases);
 	for(int i=0;i<n_bases;i++)
 		for(int j=0;j<n_bases;j++)
 			for(int k=0;k<n_bases;k++)

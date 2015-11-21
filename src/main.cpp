@@ -4,6 +4,7 @@
 #include "hartree_fock.hpp"
 #include "itgl_transform.hpp"
 #include "mbpt.hpp"
+#include "ci.hpp"
 #include <iostream>
 #include <cstdlib>
 
@@ -23,18 +24,27 @@ int main(int argc, char *argv[]){
 	auto t = hartree_fock(data);
 	cout << "---------- Hartree Fock Calculation ----------" << endl;
 	cout << "Hartree Fock energy: " << data.Ehf() << endl;
-	cout << "Time usage: " << t.count() << " seconds" << endl;
+	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
 
 	// integral transform
 	t = itgl_transform(data);
 	cout << "---------- Integrals Transformation ----------" << endl;
-	cout << "Time usage: " << t.count() << " seconds" << endl;
+	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
 
 	// MBPT
 	t = mbpt(data);
 	cout << "------- Many Body Perturbation Theory --------" << endl;
 	cout << "MBPT2 energy: " << data.Ehf()+data.mbpt[0] << endl;
-	cout << "Time usage: " << t.count() << " seconds" << endl;
+	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
+	
+	// CIS
+	t = cis(data);
+	cout << "----------------- CI Single ------------------" << endl;
+	cout << "CIS excited states: " << endl;
+	for(double i:data.ci_excited)
+		cout << i << " ";
+	cout << endl;
+	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
 
 	return 0;
 }

@@ -26,7 +26,7 @@ std::chrono::duration<double> hartree_fock(calculation_data &data, const double 
 	const int dime = data.n_paired/2;
 	const hermitian_matrix &h = data.ao_h;
 	const hermitian_matrix &overlap = data.ao_overlap;
-	const coulomb_exchange &ce = data.ao_2eint;
+	const dbl_e_itgls &ce = data.ao_2eint;
 	matrix &C = data.ao2mo;
 	std::vector<double> &eigenvalues = data.eigenvalues;
 
@@ -61,7 +61,7 @@ std::chrono::duration<double> hartree_fock(calculation_data &data, const double 
 		// calculate new C, P and e
 		// FC=SCe, C = [c1,c2,...], e = diag(e1,e2,...)
 		// Fc1 = e1*Sc1, Fc2 = e2*Sc2, ......
-		hermitian_matrix::generalized_eigen_solver(Fuv,overlap,C,eigenvalues);
+		hermitian_matrix::lowdin_diagonalization(Fuv,overlap,C,eigenvalues);
 		matrix Cocc = C.left_columns(dime);
 		P = Cocc*(Cocc.conjugate_transpose());
 
