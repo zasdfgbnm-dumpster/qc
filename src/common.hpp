@@ -16,7 +16,7 @@ class dbl_e_itgls {
 		if(i1>=n||j1>=n||i2>=n||j2>=n)
 			throw "out of range in i1, i2, j1 or j2 in class dbl_e_itgls";
 		int idx = i1*n*n*n+j1*n*n+i2*n+j2;
-		if(idx>itgl.size())
+		if(idx>=itgl.size())
 			throw "class dbl_e_itgls not correctly initialized"; 
 		return idx;
 	}
