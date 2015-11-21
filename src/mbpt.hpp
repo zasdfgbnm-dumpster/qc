@@ -23,8 +23,8 @@ std::chrono::duration<double> mbpt(calculation_data &data){
 				for(int b=n;b<m;b++){
 					double abij = data.mo_2eint(a,b,i,j);
 					double ijba = data.mo_2eint(i,j,b,a);
-					double eijab = e[i] + e[j] + e[a] + e[b];
-					E -= (2*abij*abij - abij*ijba)/eijab;
+					double eijab = e[i] + e[j] - e[a] - e[b];
+					E += (2*abij*abij - abij*ijba)/eijab;
 				}
 			}
 		}
