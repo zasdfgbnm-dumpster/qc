@@ -40,8 +40,12 @@ int main(int argc, char *argv[]){
 	// CIS
 	t = cis(data);
 	cout << "----------------- CI Single ------------------" << endl;
-	cout << "CIS excited states: " << endl;
-	for(double i:data.ci_excited)
+	cout << "CIS singlet excited states: " << endl;
+	for(double i:data.ci_singlet_excited)
+		cout << i << " ";
+	cout << endl;
+	cout << "CIS triplet excited states: " << endl;
+	for(double i:data.ci_triplet_excited)
 		cout << i << " ";
 	cout << endl;
 	cout << "Time usage: " << t.count() << " seconds" << endl << endl;

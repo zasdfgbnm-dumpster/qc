@@ -35,30 +35,33 @@ public:
 
 class calculation_data {
 public:
-	int n_baseset;                     //number of atomic base functions
-	int n_paired;                      //number of paired electrons
-	int n_alpha_electrons;             //number of unpaired alpha electrons: not implemented yet
-	int n_beta_electrons;              //number of unpaired beta electrons: not implemented yet
+	int n_baseset;                             //number of atomic base functions
+	int n_paired;                              //number of paired electrons
+	int n_alpha_electrons;                     //number of unpaired alpha electrons: not implemented yet
+	int n_beta_electrons;                      //number of unpaired beta electrons: not implemented yet
 
-	hermitian_matrix ao_h;             //one electron integrals h in atomic orbitals
-	hermitian_matrix ao_overlap;       //overlap matrix of atomic orbitals
-	dbl_e_itgls ao_2eint;         //2 electron integrals <ij|kl> in atomic orbitals
-	matrix ao2mo;                      //transmition matrix between atomic orbitals and molecular orbitals
-	hermitian_matrix mo_h;             //one electron integrals h in molecular orbitals
-	dbl_e_itgls mo_2eint;         //2 electron integrals <ij|kl> in molecular orbitals
+	hermitian_matrix ao_h;                     //one electron integrals h in atomic orbitals
+	hermitian_matrix ao_overlap;               //overlap matrix of atomic orbitals
+	dbl_e_itgls ao_2eint;                      //2 electron integrals <ij|kl> in atomic orbitals
+	matrix ao2mo;                              //transmition matrix between atomic orbitals and molecular orbitals
+	hermitian_matrix mo_h;                     //one electron integrals h in molecular orbitals
+	dbl_e_itgls mo_2eint;                      //2 electron integrals <ij|kl> in molecular orbitals
 	
-	double nuclear_repulsion;          //nuclear repulsion
-	std::vector<double> eigenvalues;   //Hartree Fock eigenvalues
-	double E0;                         //0th order energy
-	double E1;                         //1st order energy
-	double Ehf() {                     //return Hartree Fock energy
+	double nuclear_repulsion;                  //nuclear repulsion
+	std::vector<double> eigenvalues;           //Hartree Fock eigenvalues
+	double E0;                                 //0th order energy
+	double E1;                                 //1st order energy
+	double Ehf() {                             //return Hartree Fock energy
 		 return E0 + E1;
 	}
-	std::vector<double> mbpt;          //MBPT energies, starting from 2nd order
+	std::vector<double> mbpt;                  //MBPT energies, starting from 2nd order
 	
-	hermitian_matrix A;                //CIS A matrix
-	matrix ci_wavefunc;                //
-	std::vector<double> ci_excited;    //energy of CIS excited states
+	hermitian_matrix A_singlet;                //CIS A matrix for singlet spin states
+	hermitian_matrix A_triplet;                //CIS A matrix for triplet spin states
+	matrix ci_singlet_wavefunc;                //CIS coefficient for spacial orbitals for singlet spin wavefunction
+	matrix ci_triplet_wavefunc;                //CIS coefficient for spacial orbitals for triplet spin wavefunction
+	std::vector<double> ci_singlet_excited;    //energy of CIS singlet excited states
+	std::vector<double> ci_triplet_excited;    //energy of CIS triplet excited states
 };
 
 

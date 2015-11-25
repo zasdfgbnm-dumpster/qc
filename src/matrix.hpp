@@ -24,9 +24,8 @@ class matrix {
 //protected:
 public:
 	matrix(Eigen::MatrixXd mat):mat(mat){}
-	Eigen::MatrixXd mat;
-	friend class hermitian_matrix;
 public:
+	Eigen::MatrixXd mat;
 	matrix(int rows,int cols):mat(rows,cols){}
 	matrix(){}
 	virtual int n_rows() const { return mat.rows(); }
@@ -39,6 +38,11 @@ public:
 	matrix operator-(matrix rhs) const {
 		matrix ret = *this;
 		ret.mat -= rhs.mat;
+		return ret;
+	}
+	matrix operator+(matrix rhs) const {
+		matrix ret = *this;
+		ret.mat += rhs.mat;
 		return ret;
 	}
 	matrix operator*(matrix rhs) const {
@@ -111,6 +115,13 @@ std::tuple<hermitian_matrix,hermitian_matrix> hermitian_matrix::pmsqrt() const{
 	hermitian_matrix nsqrt(this->n_rows());
 	nsqrt.mat = sqrt.mat.inverse();
 	return std::tuple<hermitian_matrix,hermitian_matrix>(sqrt,nsqrt);
+}
+
+// scalar times matrix
+hermitian_matrix operator*(double l,const hermitian_matrix &r){
+	hermitian_matrix ret = r;
+	ret.mat = l*ret.mat;
+	return ret;
 }
 
 }
