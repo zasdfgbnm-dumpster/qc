@@ -62,6 +62,10 @@ public:
 	matrix ci_triplet_wavefunc;                //CIS coefficient for spacial orbitals for triplet spin wavefunction
 	std::vector<double> ci_singlet_excited;    //energy of CIS singlet excited states
 	std::vector<double> ci_triplet_excited;    //energy of CIS triplet excited states
+	
+	hermitian_matrix B_singlet;                //TDHF B matrix for singlet spin states
+	std::vector<double> tdhf_singlet_excited;  //energy of TDHF singlet excited states
+	matrix tdhf_singlet_wavefunc;              //TDHF coefficient for spacial orbitals for singlet spin wavefunction
 };
 
 

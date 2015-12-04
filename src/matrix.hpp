@@ -13,6 +13,7 @@
 #include <Eigen/Eigen>
 #include <unsupported/Eigen/MatrixFunctions>
 #include <vector>
+#include <iostream> //delete
 
 
 namespace quantum_chem{
@@ -94,10 +95,21 @@ void hermitian_matrix::lowdin_diagonalization(const hermitian_matrix &H, const h
 		eigenvalues[i] = es.eigenvalues()[i];
 }
 
-static void eigen_solver(const hermitian_matrix &A, matrix &vs, std::vector<double> &eigenvalues){
+void eigen_solver(const hermitian_matrix &A, matrix &vs, std::vector<double> &eigenvalues){
 	eigenvalues.resize(A.n_columns());
 	Eigen::SelfAdjointEigenSolver<Eigen::MatrixXd> es(A.mat);
 	vs = matrix(es.eigenvectors());
+	for(int i=0;i<A.n_columns();i++)
+		eigenvalues[i] = es.eigenvalues()[i];
+}
+
+void eigen_solver(const matrix &A, matrix &vs, std::vector<std::complex<double>> &eigenvalues){
+	eigenvalues.resize(A.n_columns());
+	Eigen::EigenSolver<Eigen::MatrixXd> es(A.mat);
+	vs = matrix(A.n_columns(),A.n_columns());
+	for(int i=0;i<A.n_columns();i++)
+		for(int j=0;j<A.n_columns();j++)
+			vs(i,j) = std::real(es.eigenvectors()(i,j));
 	for(int i=0;i<A.n_columns();i++)
 		eigenvalues[i] = es.eigenvalues()[i];
 }

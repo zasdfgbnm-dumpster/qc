@@ -5,8 +5,10 @@
 #include "itgl_transform.hpp"
 #include "mbpt.hpp"
 #include "ci.hpp"
+#include "tdhf.hpp"
 #include <iostream>
 #include <cstdlib>
+#include <algorithm>
 
 using namespace std;
 using namespace quantum_chem;
@@ -50,5 +52,15 @@ int main(int argc, char *argv[]){
 	cout << endl;
 	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
 
+	// CIS
+	t = tdhf(data);
+	cout << "------------------- TDHF ---------------------" << endl;
+	cout << "TDHF singlet excited states: " << endl;
+	auto sorted = data.tdhf_singlet_excited;
+	sort(sorted.begin(),sorted.end());
+	for_each(sorted.begin()+sorted.size()/2,sorted.end(),[](double i){ cout << i << " "; });
+	cout << endl;
+	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
+	
 	return 0;
 }
