@@ -5,7 +5,6 @@
 #include "common.hpp"
 #include <functional>
 #include <cmath>
-#include <iostream> // delete
 
 namespace quantum_chem {
 	
