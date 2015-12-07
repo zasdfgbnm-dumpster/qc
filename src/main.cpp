@@ -52,7 +52,7 @@ int main(int argc, char *argv[]){
 	cout << endl;
 	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
 
-	// CIS
+	// TDHF
 	t = tdhf(data);
 	cout << "------------------- TDHF ---------------------" << endl;
 	cout << "TDHF singlet excited states: " << endl;
@@ -60,6 +60,11 @@ int main(int argc, char *argv[]){
 	sort(sorted.begin(),sorted.end());
 	for_each(sorted.begin()+sorted.size()/2,sorted.end(),[](double i){ cout << i << " "; });
 	cout << endl;
+	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
+	
+	// integral transform for dipole moment
+	t = dipole_itgl_transform(data);
+	cout << "------ Dipole Integrals Transformation -------" << endl;
 	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
 	
 	return 0;

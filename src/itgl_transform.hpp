@@ -1,26 +1,15 @@
 #ifndef __HPP_QUANTUM_ITGLTRANS__
 #define __HPP_QUANTUM_ITGLTRANS__
 
+#include <functional>
 #include "matrix.hpp"
 #include "common.hpp"
 
 namespace quantum_chem {
-
-std::chrono::duration<double> itgl_transform(calculation_data &data) {
-	std::chrono::duration<double> elapsed_seconds(0);
-	auto start = std::chrono::steady_clock::now();
-
-	int n = data.n_baseset;
-	hermitian_matrix &mm = data.mo_h;
-	const hermitian_matrix &aa = data.ao_h;
-	dbl_e_itgls &mmmm = data.mo_2eint;
-	const dbl_e_itgls &aaaa = data.ao_2eint;
-	matrix &ao2mo = data.ao2mo;
-
+	
+void transform_1eint(matrix &ao2mo, hermitian_matrix &mm, const hermitian_matrix &aa){
+	int n = ao2mo.n_columns();
 	mm = hermitian_matrix(n);
-	mmmm = dbl_e_itgls(n);
-
-	// transform h
 	hermitian_matrix am(n);
 	for(int i=0;i<n;i++){
 		for(int j=0;j<n;j++){
@@ -37,8 +26,12 @@ std::chrono::duration<double> itgl_transform(calculation_data &data) {
 			mm(j,i) = mm(i,j);
 		}
 	}
+}
+
+void transform_2eint(matrix &ao2mo, dbl_e_itgls &mmmm, const dbl_e_itgls &aaaa){
+	int n = ao2mo.n_columns();
+	mmmm = dbl_e_itgls(n);
 	
-	// transform <ij|kl>
 	dbl_e_itgls aaam(n);
 	for(int i=0;i<n;i++){
 		for(int j=0;j<n;j++){
@@ -86,6 +79,31 @@ std::chrono::duration<double> itgl_transform(calculation_data &data) {
 			}
 		}
 	}
+}
+
+std::chrono::duration<double> itgl_transform(calculation_data &data) {
+	std::chrono::duration<double> elapsed_seconds(0);
+	auto start = std::chrono::steady_clock::now();
+
+	// transform h
+	transform_1eint(data.ao2mo,data.mo_h,data.ao_h);
+	
+	// transform <ij|kl>
+	transform_2eint(data.ao2mo,data.mo_2eint,data.ao_2eint);
+	
+	auto end = std::chrono::steady_clock::now();
+	elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end-start);
+	return elapsed_seconds;
+}
+
+std::chrono::duration<double> dipole_itgl_transform(calculation_data &data) {
+	std::chrono::duration<double> elapsed_seconds(0);
+	auto start = std::chrono::steady_clock::now();
+
+	transform_1eint(data.ao2mo,data.mo_dipole_x,data.ao_dipole_x);
+	transform_1eint(data.ao2mo,data.mo_dipole_y,data.ao_dipole_y);
+	transform_1eint(data.ao2mo,data.mo_dipole_z,data.ao_dipole_z);
+	
 	auto end = std::chrono::steady_clock::now();
 	elapsed_seconds = std::chrono::duration_cast<std::chrono::duration<double>>(end-start);
 	return elapsed_seconds;

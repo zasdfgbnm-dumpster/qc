@@ -1,6 +1,6 @@
 .PHONY: print_itgl all clean
 
-COMMON=Makefile src/common.hpp src/aces.hpp src/hartree_fock.hpp src/matrix.hpp src/utils.hpp src/mbpt.hpp src/ci.hpp src/tdhf.hpp
+COMMON=Makefile src/common.hpp src/aces.hpp src/hartree_fock.hpp src/matrix.hpp src/utils.hpp src/mbpt.hpp src/ci.hpp src/tdhf.hpp src/itgl_transform.hpp
 
 bin/calc:$(COMMON) src/main.cpp
 	g++ src/main.cpp -O2 -std=c++11 -Ilib -o bin/calc

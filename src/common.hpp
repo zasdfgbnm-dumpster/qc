@@ -48,9 +48,9 @@ public:
 	dbl_e_itgls ao_2eint;                      //2 electron integrals <ij|kl> in atomic orbitals
 	matrix ao2mo;                              //transmition matrix between atomic orbitals and molecular orbitals
 	hermitian_matrix mo_h;                     //one electron integrals h in molecular orbitals
-	hermitian_matrix mo_dipole_x;              //one electron dipole moment at direction x in molecular orbitals
-	hermitian_matrix mo_dipole_y;              //one electron dipole moment at direction y in molecular orbitals
-	hermitian_matrix mo_dipole_z;              //one electron dipole moment at direction z in molecular orbitals
+	hermitian_matrix mo_dipole_x;              //one electric dipole moment at direction x in molecular orbitals
+	hermitian_matrix mo_dipole_y;              //one electric dipole moment at direction y in molecular orbitals
+	hermitian_matrix mo_dipole_z;              //one electric dipole moment at direction z in molecular orbitals
 	dbl_e_itgls mo_2eint;                      //2 electron integrals <ij|kl> in molecular orbitals
 	
 	double nuclear_repulsion;                  //nuclear repulsion
