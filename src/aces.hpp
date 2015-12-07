@@ -31,6 +31,7 @@ void read_configuration(std::string filename, calculation_data &data){
 	std::cout << "n_alpha: " << n_alpha << std::endl;
 	std::cout << "n_beta: " << n_beta << std::endl;
 	#endif
+
 	// check next line
 	std::string line,errinfo;
 	std::getline(in, line);
@@ -45,6 +46,7 @@ void read_configuration(std::string filename, calculation_data &data){
 	for(int i=0;i<n_bases;i++)
 		for(int j=0;j<n_bases;j++)
 			in >> h(i,j);
+
 	// check next line
 	std::getline(in, line);
 	std::getline(in, line);
@@ -58,6 +60,7 @@ void read_configuration(std::string filename, calculation_data &data){
 	for(int i=0;i<n_bases;i++)
 		for(int j=0;j<n_bases;j++)
 			in >> overlap(i,j);
+
 	// check next line
 	std::getline(in, line);
 	std::getline(in, line);
@@ -73,6 +76,49 @@ void read_configuration(std::string filename, calculation_data &data){
 			for(int k=0;k<n_bases;k++)
 				for(int l=0;l<n_bases;l++)
 					in >> ce(i,k,j,l);
+
+	// check next line
+	std::getline(in, line);
+	std::getline(in, line);
+	errinfo = "bad format of input file";
+	qc_assert(line == std::string(" dipole x"),errinfo);
+	// read ao_dipole_x
+	#ifdef DEBUG
+	std::cout << "Start reading dipole x integrals..." << std::endl;
+	#endif
+	data.ao_dipole_x = hermitian_matrix(n_bases);
+	for(int i=0;i<n_bases;i++)
+		for(int j=0;j<n_bases;j++)
+			in >> data.ao_dipole_x(i,j);
+	
+	// check next line
+	std::getline(in, line);
+	std::getline(in, line);
+	errinfo = "bad format of input file";
+	qc_assert(line == std::string(" dipole y"),errinfo);
+	// read ao_dipole_y
+	#ifdef DEBUG
+	std::cout << "Start reading dipole y integrals..." << std::endl;
+	#endif
+	data.ao_dipole_y = hermitian_matrix(n_bases);
+	for(int i=0;i<n_bases;i++)
+		for(int j=0;j<n_bases;j++)
+			in >> data.ao_dipole_y(i,j);
+		
+	// check next line
+	std::getline(in, line);
+	std::getline(in, line);
+	errinfo = "bad format of input file";
+	qc_assert(line == std::string(" dipole z"),errinfo);
+	// read ao_dipole_z
+	#ifdef DEBUG
+	std::cout << "Start reading dipole z integrals..." << std::endl;
+	#endif
+	data.ao_dipole_z = hermitian_matrix(n_bases);
+	for(int i=0;i<n_bases;i++)
+		for(int j=0;j<n_bases;j++)
+			in >> data.ao_dipole_z(i,j);
+		
 }
 
 }
