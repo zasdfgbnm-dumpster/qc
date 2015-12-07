@@ -72,6 +72,8 @@ public:
 	hermitian_matrix B_singlet;                //TDHF B matrix for singlet spin states
 	std::vector<double> tdhf_singlet_excited;  //energy of TDHF singlet excited states
 	matrix tdhf_singlet_wavefunc;              //TDHF coefficient for spacial orbitals for singlet spin wavefunction
+	
+	double polarizability[3][3];               //Polarizability tensor, index 0=x,1=y,2=z
 };
 
 

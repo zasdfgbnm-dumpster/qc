@@ -6,9 +6,11 @@
 #include "mbpt.hpp"
 #include "ci.hpp"
 #include "tdhf.hpp"
+#include "cphf.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <algorithm>
+#include <iomanip>
 
 using namespace std;
 using namespace quantum_chem;
@@ -66,6 +68,18 @@ int main(int argc, char *argv[]){
 	t = dipole_itgl_transform(data);
 	cout << "------ Dipole Integrals Transformation -------" << endl;
 	cout << "Time usage: " << t.count() << " seconds" << endl << endl;
+	
+	// CPHF
+	t = cphf(data);
+	cout << "------------------- CPHF ---------------------" << endl;
+	cout << "Polarizability:" << endl << setprecision(6) << fixed << showpos;
+	for(int xyz1=0;xyz1<3;xyz1++){
+		for(int xyz2=0;xyz2<3;xyz2++){
+			cout << data.polarizability[xyz1][xyz2] << "\t";
+		}
+		cout << endl;
+	}
+	cout << resetiosflags(ios::showpos|ios_base::floatfield) << "Time usage: " << t.count() << " seconds" << endl << endl;
 	
 	return 0;
 }

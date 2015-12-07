@@ -68,11 +68,19 @@ public:
 	static void eigen_solver(const hermitian_matrix &A, matrix &vs, std::vector<double> &eigenvalues);
 	static hermitian_matrix idmat(int size);
 	std::tuple<hermitian_matrix,hermitian_matrix> pmsqrt() const;
+	hermitian_matrix inverse() const {
+		return hermitian_matrix(mat.inverse());
+	}
 	hermitian_matrix operator=(matrix m){
 		m.mat += m.conjugate_transpose().mat;
 		m.mat /= 2;
 		mat = m.mat;
 		return *this;
+	}
+	hermitian_matrix operator+(hermitian_matrix rhs) const {
+		hermitian_matrix ret = *this;
+		ret.mat += rhs.mat;
+		return ret;
 	}
 };
 
